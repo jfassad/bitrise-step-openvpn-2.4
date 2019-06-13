@@ -48,10 +48,10 @@ EOF
   darwin*)
     echo "Configuring for Mac OS"
 
-    echo ${ca_crt} | base64 -d > ca.crt
-    echo ${client_crt} | base64 -d > client.crt
-    echo ${client_key} | base64 -d > client.key
-    echo ${tls_key} | base64 -d > tls.key
+    echo ${ca_crt} | base64 -D -o ca.crt > /dev/null 2>&1
+    echo ${client_crt} | base64 -D -o client.crt > /dev/null 2>&1
+    echo ${client_key} | base64 -D -o client.key > /dev/null 2>&1
+    echo ${tls_key} | base64 -D -o tls.key > /dev/null 2>&1
 
     cat <<EOF > client.conf
 client
@@ -71,7 +71,7 @@ cipher AES-256-CBC
 comp-lzo no
 EOF
 
-    sudo openvpn --config client.conf &
+    sudo openvpn --config client.conf
 
     sleep 5
 
