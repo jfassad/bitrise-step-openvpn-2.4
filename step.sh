@@ -52,8 +52,25 @@ EOF
     echo ${client_crt} | base64 -D -o client.crt > /dev/null 2>&1
     echo ${client_key} | base64 -D -o client.key > /dev/null 2>&1
 
-    sudo openvpn --client --dev tun --proto ${proto} --remote ${host} ${port} --resolv-retry infinite --nobind --persist-key --persist-tun --comp-lzo --verb 3 --ca ca.crt --cert client.crt --key client.key > /dev/null 2>&1 &
+    cat <<EOF > client.conf
+client
+pull-filter ignore redirect-gateway
+dev tun
+remote ${host} ${port} ${proto}  
+resolv-retry infinite
+nobind
+persist-key
+persist-tun
+verb 3
+ca ca.crt
+cert client.crt
+key client.key
+tls-auth tls.key 1
+cipher AES-256-CBC
+comp-lzo no
+EOF
 
+    sudo openvpn --config client.conf
     sleep 5
 
     if ifconfig -l | grep utun0 > /dev/null
