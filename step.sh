@@ -15,7 +15,24 @@ case "$OSTYPE" in
     echo ${client_crt} | base64 -d > /etc/openvpn/client.crt
     echo ${client_key} | base64 -d > /etc/openvpn/client.key
     echo ${tls_key} | base64 -d > /etc/openvpn/tls.key
-    echo $ovpn_config > /etc/openvpn/client.conf
+
+    cat <<EOF > /etc/openvpn/client.conf
+client
+pull-filter ignore redirect-gateway
+dev tun
+remote ${host} ${port} ${proto}  
+resolv-retry infinite
+nobind
+persist-key
+persist-tun
+verb 3
+ca ca.crt
+cert client.crt
+key client.key
+tls-auth tls.key 1
+cipher AES-256-CBC
+comp-lzo no
+EOF
 
     service openvpn start client > /dev/null 2>&1
     sleep 5
