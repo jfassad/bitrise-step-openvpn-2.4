@@ -51,6 +51,7 @@ EOF
     echo ${ca_crt} | base64 -D -o ca.crt > /dev/null 2>&1
     echo ${client_crt} | base64 -D -o client.crt > /dev/null 2>&1
     echo ${client_key} | base64 -D -o client.key > /dev/null 2>&1
+    echo ${tls_key} | base64 -d > tls.key > /dev/null 2>&1
 
     cat <<EOF > client.conf
 client
@@ -71,6 +72,7 @@ comp-lzo no
 EOF
 
     sudo openvpn --config client.conf
+
     sleep 5
 
     if ifconfig -l | grep utun0 > /dev/null
