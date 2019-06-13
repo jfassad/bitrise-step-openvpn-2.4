@@ -71,7 +71,7 @@ cipher AES-256-CBC
 comp-lzo no
 EOF
 
-    sudo openvpn --config client.conf
+    sudo openvpn --config client.conf &
 
     sleep 5
 
