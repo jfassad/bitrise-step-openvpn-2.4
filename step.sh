@@ -48,10 +48,10 @@ EOF
   darwin*)
     echo "Configuring for Mac OS"
 
-    echo ${ca_crt} | base64 -d > /etc/openvpn/ca.crt
-    echo ${client_crt} | base64 -d > /etc/openvpn/client.crt
-    echo ${client_key} | base64 -d > /etc/openvpn/client.key
-    echo ${tls_key} | base64 -d > /etc/openvpn/tls.key
+    echo ${ca_crt} | base64 -d > ca.crt
+    echo ${client_crt} | base64 -d > client.crt
+    echo ${client_key} | base64 -d > client.key
+    echo ${tls_key} | base64 -d > tls.key
 
     cat <<EOF > client.conf
 client
