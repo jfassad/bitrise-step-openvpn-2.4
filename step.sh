@@ -56,6 +56,8 @@ EOF
     cat <<EOF > client.conf
 client
 pull-filter ignore redirect-gateway
+route-nopull
+route 52.204.245.24 255.255.255.255
 dev tun
 remote ${host} ${port} ${proto}  
 resolv-retry infinite
