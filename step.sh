@@ -71,8 +71,8 @@ cipher AES-256-CBC
 comp-lzo no
 EOF
 
-    #sudo openvpn --config client.conf &
-    sudo openvpn --client --pull-filter ignore redirect-gateway --dev tun --proto ${proto} --remote ${host} ${port} \
+    sudo openvpn --config client.conf &
+    #sudo openvpn --client --pull-filter ignore redirect-gateway --dev tun --proto ${proto} --remote ${host} ${port} \
     --resolv-retry infinite --nobind --persist-key --persist-tun --verb 3 --ca ca.crt --cert client.crt --key client.key \
     --tls-auth tls.key 1 --cipher AES-256-CBC --comp-lzo no &
 
